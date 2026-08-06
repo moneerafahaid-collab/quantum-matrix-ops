@@ -1000,21 +1000,6 @@ img {
   text-align: center;
 }
 
-.atom {
-  width: 64px;
-  height: 64px;
-  margin: 0 auto 1.25rem;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--coral), var(--teal));
-  color: #fff;
-  font-size: 1.6rem;
-  font-family: var(--mono);
-  font-weight: 700;
-  animation: float 5s ease-in-out infinite;
-}
-
 .closing h2 {
   margin: 0;
   font-size: clamp(1.7rem, 4vw, 2.5rem);
