@@ -1049,9 +1049,9 @@ img {
   order: 2;
   display: grid;
   place-items: center;
-  width: 72px;
-  height: 72px;
-  margin-top: 0.25rem;
+  width: 88px;
+  height: 88px;
+  margin-top: 0.4rem;
   border-radius: 50%;
   overflow: visible;
   background: transparent !important;
