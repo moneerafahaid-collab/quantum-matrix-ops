@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>منصة الخريطة المرجعية للأكواد الكمومية</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --colors-sa-25: #F7FDF9;
+      --colors-sa-50: #F3FCF6;
+      --colors-sa-100: #DFF6E7;
+      --colors-sa-200: #B8EACB;
+      --colors-sa-500: #25935F;
+      --colors-sa-600: #1B8354;
+      --colors-sa-700: #166A45;
+      --colors-sa-800: #14573A;
+      --colors-gray-25: #FCFCFD;
+      --colors-gray-50: #F9FAFB;
+      --colors-gray-100: #F3F4F6;
+      --colors-gray-200: #E5E7EB;
+      --colors-gray-300: #D2D6DB;
+      --colors-gray-400: #9DA4AE;
+      --colors-gray-500: #6C737F;
+      --colors-gray-600: #4D5761;
+      --colors-gray-700: #384250;
+      --colors-gray-800: #1F2A37;
+      --colors-gray-900: #111927;
+      --colors-gold-100: #FFFCE6;
+      --colors-gold-500: #F5BD02;
+      --colors-gold-600: #DBA102;
+      --colors-gold-700: #B87B02;
+      --colors-lavender-100: #F2E9F5;
+      --colors-lavender-500: #80519F;
+      --colors-success-50: #ECFDF3;
+      --colors-success-200: #ABEFC6;
+      --colors-success-600: #079455;
+      --colors-success-700: #067647;
+      --colors-info-50: #EFF8FF;
+      --colors-info-200: #B2DDFF;
+      --colors-info-700: #175CD3;
+      --colors-warning-50: #FFFAEB;
+      --colors-warning-200: #FEDF89;
+      --colors-warning-700: #B54708;
+      --text-primary: #111927;
+      --text-secondary: #384250;
+      --text-tertiary: #6C737F;
+      --text-inverse: #FFFFFF;
+      --bg-default: #FFFFFF;
+      --bg-muted: #F9FAFB;
+      --bg-subtle: #FCFCFD;
+      --border-default: #D2D6DB;
+      --border-subtle: #E5E7EB;
+      --border-focus: #25935F;
+      --font: "IBM Plex Sans Arabic", "Noto Sans Arabic", sans-serif;
+      --font-mono: "IBM Plex Mono", Consolas, monospace;
+      --radius-interactive: 4px;
+      --radius-panel: 8px;
+      --radius-card: 16px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 20px;
+      --space-6: 24px;
+      --space-8: 32px;
+      --header-h: 72px;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body {
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 24px;
+      color: var(--text-primary);
+      background: var(--bg-muted);
+    }
+    button { font-family: inherit; cursor: pointer; }
+    .ltr, pre, code { direction: ltr; text-align: left; }
+    .brand-bar { height: 4px; background: var(--colors-sa-600); }
+    .pc-header {
+      position: sticky;
+      top: 0;
+      z-index: 99;
+      height: var(--header-h);
+      background: var(--bg-default);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+    }
+    .pc-header-inner, .pc-wrap {
+      width: min(1280px, calc(100% - 32px));
+      margin-inline: auto;
+    }
+    .pc-header-inner { display: flex; align-items: center; gap: var(--space-4); }
+    .pc-mark {
+      width: 40px; height: 40px; border-radius: var(--radius-panel);
+      background: var(--colors-sa-600); color: var(--text-inverse);
+      display: grid; place-items: center; flex-shrink: 0;
+    }
+    .pc-header h1 {
+      margin: 0;
+      font-size: 20px;
+      line-height: 30px;
+      font-weight: 700;
+    }
+    .pc-header p {
+      margin: 0;
+      font-size: 12px;
+      line-height: 18px;
+      color: var(--text-tertiary);
+    }
+    .pc-shell {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      gap: var(--space-6);
+      padding: var(--space-6) 0 var(--space-8);
+      align-items: start;
+    }
+    .pc-aside { position: sticky; top: calc(var(--header-h) + 16px); }
+    .pc-kicker {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-tertiary);
+      margin: 0 0 var(--space-2);
+    }
+    .pc-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: var(--space-6);
+    }
+    .pc-nav-item, .pc-mod-item {
+      width: 100%;
+      text-align: start;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-secondary);
+      border-radius: var(--radius-interactive);
+      padding: 10px 12px;
+      font-size: 14px;
+      line-height: 20px;
+      font-weight: 500;
+    }
+    .pc-nav-item:hover, .pc-mod-item:hover { background: var(--colors-gray-100); }
+    .pc-nav-item.is-on {
+      background: var(--colors-sa-50);
+      border-color: var(--colors-sa-200);
+      color: var(--colors-sa-700);
+    }
+    .pc-mod-item.is-on {
+      background: var(--colors-sa-600);
+      color: var(--text-inverse);
+    }
+    .pc-hero {
+      background: var(--bg-default);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-card);
+      padding: var(--space-6);
+      margin-bottom: var(--space-6);
+      border-inline-start: 4px solid var(--colors-sa-600);
+    }
+    .pc-hero h2 {
+      margin: 0 0 8px;
+      font-size: 30px;
+      line-height: 38px;
+      font-weight: 700;
+    }
+    .pc-hero p { margin: 0; color: var(--text-secondary); font-size: 16px; line-height: 24px; }
+    .pc-card {
+      background: var(--bg-default);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      margin-bottom: var(--space-6);
+    }
+    .pc-card-head {
+      display: flex;
+      justify-content: space-between;
+      gap: var(--space-3);
+      align-items: center;
+      padding: 14px var(--space-5);
+      border-bottom: 1px solid var(--border-subtle);
+      background: var(--colors-sa-25);
+    }
+    .pc-card-head-title { display: flex; align-items: flex-start; gap: 8px; min-width: 0; }
+    .pc-card-head-title strong { font-size: 16px; font-weight: 600; display: block; }
+    .pc-en {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 18px;
+      font-weight: 500;
+      color: var(--colors-sa-700);
+      direction: ltr;
+      text-align: start;
+      margin-top: 2px;
+    }
+    .pc-term {
+      font-family: var(--font-mono);
+      font-size: 0.92em;
+      color: var(--colors-sa-800);
+      background: var(--colors-sa-50);
+      border: 1px solid var(--colors-sa-100);
+      border-radius: 3px;
+      padding: 0 5px;
+      direction: ltr;
+      unicode-bidi: isolate;
+      white-space: nowrap;
+    }
+    .pc-mod-item .pc-en { color: inherit; opacity: 0.78; font-size: 11px; }
+    .pc-mod-item.is-on .pc-en { opacity: 0.9; }
+    .pc-glossary { width: 100%; border-collapse: collapse; font-size: 14px; }
+    .pc-glossary th {
+      text-align: start;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border-default);
+      background: var(--colors-sa-25);
+    }
+    .pc-glossary td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border-subtle);
+      vertical-align: top;
+      color: var(--text-secondary);
+    }
+    .pc-glossary td:first-child {
+      font-family: var(--font-mono);
+      font-weight: 600;
+      color: var(--colors-sa-800);
+      direction: ltr;
+      text-align: left;
+      white-space: nowrap;
+    }
+    .pc-glossary td:nth-child(2) { font-weight: 600; color: var(--text-primary); }
+    .pc-file {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-tertiary);
+      background: var(--bg-default);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-interactive);
+      padding: 2px 8px;
+    }
+    .pc-card-body { padding: var(--space-5); display: grid; gap: var(--space-4); }
+    .pc-physics { margin: 0; color: var(--text-secondary); font-size: 16px; line-height: 24px; }
+    .pc-formula {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      line-height: 20px;
+      background: var(--colors-info-50);
+      border: 1px solid var(--colors-info-200);
+      color: var(--colors-info-700);
+      border-radius: var(--radius-panel);
+      padding: 12px;
+    }
+    .pc-label { font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px; }
+    .pc-param {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-panel);
+      padding: 12px;
+    }
+    .pc-param-name { font-family: var(--font-mono); font-weight: 600; font-size: 14px; }
+    .pc-tag {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 500;
+      background: var(--colors-gold-100);
+      color: var(--colors-gold-700);
+      border-radius: var(--radius-interactive);
+      padding: 2px 8px;
+    }
+    .pc-hint { font-size: 14px; color: var(--text-tertiary); margin: 8px 0; }
+    .pc-chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
+    .pc-chip {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 18px;
+      border: 1px solid var(--border-default);
+      background: var(--bg-default);
+      color: var(--text-primary);
+      border-radius: var(--radius-interactive);
+      padding: 6px 12px;
+    }
+    .pc-chip.is-on, .pc-btn-primary {
+      background: var(--colors-sa-600);
+      border-color: var(--colors-sa-600);
+      color: var(--text-inverse);
+      font-weight: 600;
+    }
+    .pc-chip:hover { border-color: var(--colors-sa-500); }
+    .pc-btn, .pc-btn-ghost {
+      border-radius: var(--radius-interactive);
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 18px;
+      padding: 8px 12px;
+      border: 1px solid var(--border-default);
+      background: var(--bg-default);
+      color: var(--text-secondary);
+    }
+    .pc-btn:hover { background: var(--colors-gray-100); }
+    .pc-btn-ghost { border-color: transparent; }
+    .pc-btn-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .pc-given {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .pc-given-cell {
+      background: var(--colors-sa-25);
+      border: 1px solid var(--colors-sa-100);
+      border-radius: var(--radius-panel);
+      padding: 10px 12px;
+    }
+    .pc-given-cell span { display: block; font-size: 12px; color: var(--text-tertiary); }
+    .pc-given-cell b { font-family: var(--font-mono); font-size: 14px; color: var(--colors-sa-800); font-weight: 600; }
+    .pc-code {
+      margin: 0;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 20px;
+      background: var(--colors-gray-900);
+      color: #DCFAE6;
+      border-radius: var(--radius-panel);
+      padding: 16px;
+      overflow: auto;
+      max-height: 280px;
+      white-space: pre;
+    }
+    .pc-cmd {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      background: var(--colors-sa-25);
+      border: 1px solid var(--colors-sa-100);
+      border-radius: var(--radius-panel);
+      padding: 10px 12px;
+      font-size: 14px;
+    }
+    .pc-cmd code { font-family: var(--font-mono); color: var(--colors-sa-800); font-size: 13px; }
+    .pc-sim { border: 1px solid var(--border-subtle); border-radius: var(--radius-panel); overflow: hidden; }
+    .pc-sim-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 12px;
+      background: var(--colors-gray-50);
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .pc-sim-body { padding: 12px; }
+    .pc-alert-success {
+      background: var(--colors-success-50);
+      border: 1px solid var(--colors-success-200);
+      color: var(--colors-success-700);
+      border-radius: var(--radius-panel);
+      padding: 12px;
+      font-size: 14px;
+      line-height: 20px;
+    }
+    .pc-alert-info {
+      background: var(--colors-info-50);
+      border: 1px dashed var(--colors-info-200);
+      color: var(--colors-info-700);
+      border-radius: var(--radius-panel);
+      padding: 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+    .pc-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 8px; }
+    .pc-table th { text-align: start; color: var(--text-secondary); padding: 6px 8px; }
+    .pc-table td {
+      font-family: var(--font-mono);
+      padding: 6px 8px;
+      border-top: 1px solid var(--border-subtle);
+      color: var(--colors-sa-800);
+    }
+    .pc-foot {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      text-align: center;
+      padding: 24px 16px 40px;
+    }
+    @media (max-width: 960px) {
+      .pc-shell { grid-template-columns: 1fr; }
+      .pc-aside { position: static; }
+      .pc-given { grid-template-columns: 1fr 1fr; }
+      .pc-header h1 { font-size: 16px; line-height: 24px; }
+    }
+    button:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 2px; }
+  </style>
+</head>
+<body>
+  <div class="brand-bar"></div>
+  <header class="pc-header">
+    <div class="pc-header-inner">
+      <div class="pc-mark" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+      </div>
+      <div style="flex:1;min-width:0">
+        <h1>المرحلة 3 · انتقال إلى عالم الكمبيوتر</h1>
+        <p>الخريطة المرجعية للأكواد الكمومية — Quantum Code Reference Map</p>
+      </div>
+      <a href="../" class="pc-btn" style="text-decoration:none;flex-shrink:0">← العودة للمنصة</a>
+    </div>
+  </header>
+  <div id="app" class="pc-wrap"></div>
+  <p class="pc-foot">التصميم محاذاة لكود المنصات (أخضر السعودية #1B8354 وخط IBM Plex Sans Arabic). الاعتماد الرسمي يتطلب مراجعة DGA.</p>
+  <script src="quantum-data.js"></script>
+  <script>
+    const icons = {
+      book: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>',
+      code: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>',
+      copy: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>',
+      check: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>',
+      terminal: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg>'
+    };
+
+    let activeTab = "queryModel";
+    let copiedId = null;
+    let openFull = {};
+    let activeModule = null;
+    let selectedCase = {};
+    let runState = {};
+
+    function escapeHtml(text) {
+      return String(text).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+    }
+
+    const TERM_PHRASES = [
+      "Quantum teleportation", "State preparation", "Phase kickback", "Hidden function",
+      "Truth table", "Black box", "Gate complexity", "Query complexity", "Pure state",
+      "Bloch sphere", "Classical bits", "Bell state", "No-signaling", "Query algorithms",
+      "reversible gate", "Basis states", "Basis state", "Basis inputs", "Oracle block"
+    ];
+    const TERM_WORDS = [
+      "Teleportation", "Entanglement", "Superposition", "Interference", "Measurement",
+      "Amplitude", "Amplitudes", "Hadamard", "Probabilities", "Hardware", "Pipeline",
+      "Modules", "Marking", "Correction", "Fidelity", "Simulator", "Circuit", "Oracle",
+      "Query", "Target", "Input", "Shots", "Alice", "Bob", "Qubit", "Phase", "Gates",
+      "Deutsch", "Grover", "Toffoli", "CNOT", "Mixed", "Shot"
+    ];
+
+    function highlightTerms(text) {
+      let out = escapeHtml(text);
+      const wrap = (s) => `<span class="pc-term">${s}</span>`;
+      for (const phrase of TERM_PHRASES) {
+        out = out.replaceAll(phrase, wrap(phrase));
+      }
+      for (const word of TERM_WORDS) {
+        out = out.replace(new RegExp("\\b" + word + "\\b", "g"), wrap(word));
+      }
+      return out;
+    }
+
+    function copyBtn(id, kind, label) {
+      const on = copiedId === id + ":" + kind;
+      return `<button type="button" data-copy="${id}" data-kind="${kind}" class="pc-btn">${on ? icons.check : icons.copy} ${on ? "تم النسخ" : label}</button>`;
+    }
+
+    function chips(values) {
+      return values.map((v) => `<span class="pc-chip ltr">${escapeHtml(v)}</span>`).join("");
+    }
+
+    function tableHtml(rows) {
+      if (!rows || !rows.length) return "";
+      const head = rows[0].map((c) => `<th>${escapeHtml(c)}</th>`).join("");
+      const body = rows.slice(1).map((r) =>
+        `<tr>${r.map((c) => `<td>${escapeHtml(c)}</td>`).join("")}</tr>`
+      ).join("");
+      return `<table class="pc-table"><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table>`;
+    }
+
+    function paramBox(param) {
+      return `<div class="pc-param">
+        <span class="pc-param-name">${escapeHtml(param.name)}</span>
+        <span class="pc-tag">${escapeHtml(param.note)}</span>
+        <p class="pc-hint">${highlightTerms(param.meaning)}</p>
+        <div class="pc-chip-row">${chips(param.allowed)}</div>
+        ${tableHtml(param.table)}
+      </div>`;
+    }
+
+    function currentCase(mod) {
+      if (!mod.cases || !mod.cases.length) return null;
+      const id = selectedCase[mod.id] || mod.cases[0].id;
+      return mod.cases.find((c) => c.id === id) || mod.cases[0];
+    }
+
+    function casePicker(mod) {
+      if (!mod.cases || !mod.cases.length) return "";
+      const cur = currentCase(mod);
+      const title = (mod.case_groups && mod.case_groups[0] && mod.case_groups[0].title) || "اختر حالة";
+      const btns = mod.cases.map((c) =>
+        `<button type="button" data-modcase="${mod.id}" data-case="${c.id}" class="pc-chip ${cur.id === c.id ? "is-on" : ""}">${escapeHtml(c.label)}</button>`
+      ).join("");
+      return `<div>
+        <div class="pc-label">${escapeHtml(title)} — click a case / اضغط لترى كيف يتغير الناتج</div>
+        <div class="pc-chip-row">${btns}</div>
+      </div>`;
+    }
+
+    function givenRow(mod) {
+      const c = currentCase(mod);
+      const given = (c && c.given) || mod.given;
+      if (!given) return "";
+      const cells = given.map(([k, v]) =>
+        `<div class="pc-given-cell"><span>${escapeHtml(k)}</span><b class="ltr">${escapeHtml(v)}</b></div>`
+      ).join("");
+      return `<div><div class="pc-label">المعطيات المختارة الآن — selected values</div><div class="pc-given">${cells}</div></div>`;
+    }
+
+    function simBox(mod) {
+      const c = currentCase(mod);
+      const state = runState[mod.id] || "done";
+      const output = (c && c.run_output) || mod.run_output || "";
+      const readout = (c && c.readout) || mod.readout || "";
+      if (state === "running") {
+        return `<div class="pc-alert-info">المحاكي Simulator يعالج الحالة المختارة…</div>`;
+      }
+      return `<div>
+        <pre class="pc-code">${escapeHtml(output)}</pre>
+        <div class="pc-alert-success" style="margin-top:8px"><strong>ماذا صار / readout: </strong>${escapeHtml(readout)}</div>
+      </div>`;
+    }
+
+    function arName(mod) {
+      return String(mod.name || "").split(" — ")[0];
+    }
+
+    function glossaryTable() {
+      const rows = (window.quantumData.glossary || []).map((row) =>
+        `<tr><td class="ltr">${escapeHtml(row[0])}</td><td>${escapeHtml(row[1])}</td><td>${highlightTerms(row[2])}</td></tr>`
+      ).join("");
+      return `<article class="pc-card">
+        <div class="pc-card-head">
+          <div class="pc-card-head-title">${icons.book}<div><strong>قاموس المصطلحات</strong><span class="pc-en">English glossary — Arabic meaning</span></div></div>
+        </div>
+        <div class="pc-card-body">
+          <p class="pc-physics">كل مصطلح إنجليزي يظهر أيضًا داخل شرح الوحدات بخط أخضر. هذا الجدول مرجع واحد حتى لا يختلط Oracle مع Query أو Teleportation مع State preparation.</p>
+          <table class="pc-glossary">
+            <thead><tr><th>English</th><th>العربي</th><th>المعنى / meaning</th></tr></thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      </article>`;
+    }
+
+    function render() {
+      if (activeTab === "glossary") {
+        document.getElementById("app").innerHTML = `
+          <div class="pc-shell">
+            <aside class="pc-aside">
+              <p class="pc-kicker">Topics — المواضيع</p>
+              <div class="pc-nav">
+                ${tabBtn("queryModel", "الاستعلام الكمي", "Quantum query")}
+                ${tabBtn("teleportation", "النقل الآني", "Teleportation")}
+                ${tabBtn("glossary", "المصطلحات", "Glossary")}
+              </div>
+            </aside>
+            <section>
+              <div class="pc-hero">
+                <h2>المصطلحات الإنجليزية مع الشرح</h2>
+                <p>English terms next to Arabic. نفس الكلمة تُستخدم في الكود (Oracle, Query, Fidelity…) حتى لا يلتبس المعنى عند القراءة أو النسخ.</p>
+              </div>
+              ${glossaryTable()}
+            </section>
+          </div>
+        `;
+        bindOnce();
+        return;
+      }
+
+      const topic = window.quantumData[activeTab];
+      const nav = topic.modules.map((mod) =>
+        `<button type="button" data-mod="${mod.id}" class="pc-mod-item ${activeModule === mod.id ? "is-on" : ""}">${escapeHtml(arName(mod))}<span class="pc-en">${escapeHtml(mod.en || "")}</span></button>`
+      ).join("");
+
+      const cards = topic.modules.map((mod) => {
+        const code = (currentCase(mod) && currentCase(mod).example_code) || mod.example_code || mod.snippet;
+        return `<article id="mod-${mod.id}" class="pc-card">
+          <div class="pc-card-head">
+            <div class="pc-card-head-title">${icons.code}<div><strong>${escapeHtml(mod.name)}</strong><span class="pc-en">${escapeHtml(mod.en || "")}</span></div><span class="pc-file ltr">${mod.file}</span></div>
+            <div class="pc-btn-row">${copyBtn(mod.id, "example", "نسخ المثال")} ${copyBtn(mod.id, "cmd", "نسخ الأمر")}</div>
+          </div>
+          <div class="pc-card-body">
+            <p class="pc-physics">${highlightTerms(mod.physics)}</p>
+            <div class="pc-formula ltr">${escapeHtml(mod.formula)}</div>
+            <div>
+              <div class="pc-label">المعطيات المسموحة — allowed inputs</div>
+              <div style="display:grid;gap:8px">${mod.params.map(paramBox).join("")}</div>
+            </div>
+            ${casePicker(mod)}
+            ${givenRow(mod)}
+            <div>
+              <div class="pc-label">مثال كود كامل — complete example</div>
+              <pre class="pc-code">${escapeHtml(code)}</pre>
+            </div>
+            <div class="pc-cmd">${icons.terminal}<span>الأمر / command:</span><code class="ltr">${mod.command}</code></div>
+            <div class="pc-sim">
+              <div class="pc-sim-bar">
+                <span>محاكي التشغيل — simulator</span>
+                <button type="button" data-run="${mod.id}" class="pc-chip is-on">${runState[mod.id] === "running" ? "جاري التشغيل…" : "تشغيل المثال — run"}</button>
+              </div>
+              <div class="pc-sim-body">${simBox(mod)}</div>
+            </div>
+            <button type="button" data-full="${mod.id}" class="pc-btn-ghost">${openFull[mod.id] ? "إخفاء الملف الكامل" : "إظهار الملف الكامل (اختياري)"}</button>
+            ${openFull[mod.id] ? `<pre class="pc-code">${escapeHtml(mod.full_code)}</pre>` : ""}
+          </div>
+        </article>`;
+      }).join("");
+
+      document.getElementById("app").innerHTML = `
+        <div class="pc-shell">
+          <aside class="pc-aside">
+            <p class="pc-kicker">Topics — المواضيع</p>
+            <div class="pc-nav">
+              ${tabBtn("queryModel", "الاستعلام الكمي", "Quantum query")}
+              ${tabBtn("teleportation", "النقل الآني", "Teleportation")}
+              ${tabBtn("glossary", "المصطلحات", "Glossary")}
+            </div>
+            <p class="pc-kicker">Module map — خريطة الوحدات</p>
+            <div class="pc-nav">${nav}</div>
+          </aside>
+          <section>
+            <div class="pc-hero">
+              <h2>${topic.title}</h2>
+              <p>${topic.description}</p>
+            </div>
+            ${cards}
+          </section>
+        </div>
+      `;
+      bindOnce();
+    }
+
+    function tabBtn(id, ar, en) {
+      return `<button type="button" data-tab="${id}" class="pc-nav-item ${activeTab === id ? "is-on" : ""}">${icons.book} ${ar}<span class="pc-en">${en}</span></button>`;
+    }
+
+    function bindOnce() {
+      const app = document.getElementById("app");
+      if (app.dataset.bound === "1") return;
+      app.dataset.bound = "1";
+      app.addEventListener("click", (e) => {
+        const tab = e.target.closest("[data-tab]");
+        if (tab) {
+          activeTab = tab.getAttribute("data-tab");
+          if (activeTab !== "glossary") {
+            activeModule = window.quantumData[activeTab].modules[0].id;
+          }
+          copiedId = null;
+          render();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          return;
+        }
+        const modBtn = e.target.closest("[data-mod]");
+        if (modBtn && !e.target.closest("[data-modcase]")) {
+          activeModule = modBtn.getAttribute("data-mod");
+          render();
+          document.getElementById("mod-" + activeModule)?.scrollIntoView({ behavior: "smooth", block: "start" });
+          return;
+        }
+        const caseBtn = e.target.closest("[data-modcase]");
+        if (caseBtn) {
+          const mid = caseBtn.getAttribute("data-modcase");
+          selectedCase[mid] = caseBtn.getAttribute("data-case");
+          runState[mid] = "running";
+          render();
+          setTimeout(() => { runState[mid] = "done"; render(); }, 250);
+          return;
+        }
+        const runBtn = e.target.closest("[data-run]");
+        if (runBtn) {
+          const id = runBtn.getAttribute("data-run");
+          runState[id] = "running";
+          render();
+          setTimeout(() => { runState[id] = "done"; render(); }, 250);
+          return;
+        }
+        const fullBtn = e.target.closest("[data-full]");
+        if (fullBtn) {
+          openFull[fullBtn.getAttribute("data-full")] = !openFull[fullBtn.getAttribute("data-full")];
+          render();
+          return;
+        }
+        const copyBtnEl = e.target.closest("[data-copy]");
+        if (copyBtnEl) {
+          const id = copyBtnEl.getAttribute("data-copy");
+          const kind = copyBtnEl.getAttribute("data-kind");
+          const topic = window.quantumData[activeTab];
+          const mod = topic.modules.find((m) => m.id === id);
+          const c = currentCase(mod);
+          const text = kind === "cmd" ? mod.command : ((c && c.example_code) || mod.example_code || mod.snippet);
+          navigator.clipboard.writeText(text).then(() => {
+            copiedId = id + ":" + kind;
+            render();
+            setTimeout(() => { copiedId = null; render(); }, 1200);
+          });
+        }
+      });
+    }
+
+    if (!window.quantumData) {
+      document.getElementById("app").innerHTML = "<p class='pc-alert-success' style='margin:24px'>تعذر تحميل البيانات. افتح http://127.0.0.1:8000/index.html</p>";
+    } else {
+      activeModule = window.quantumData.queryModel.modules[0].id;
+      render();
+    }
+  </script>
+</body>
+</html>
